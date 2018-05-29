@@ -1,12 +1,16 @@
-<nav class="navbar navbar-light justify-content-end">
-  <div>
+<nav class="navbar navbar-light">
+  <div class="justify-content-center">
+    <a class="text-success nav-item"><%= notice %></a>
+    <a class="text-danger nav-item"><%= alert %></a>
+  </div>
+  <div class="justify-content-end">
     <% if current_user %>
       你好! <%= current_user.email %>
       <%= link_to('注销', destroy_user_session_path, :method => :delete) %> |
       <%= link_to('修改密码', edit_registration_path(:user)) %>
     <% else %>
-      <%= link_to('注册', new_registration_path(:user)) %> |
-      <%= link_to('登录', new_session_path(:user)) %>
+      <%= link_to('登录', new_session_path(:user)) %> |
+      <%= link_to('注册', new_registration_path(:user)) %>
     <% end %>
   </div>
 </nav>
