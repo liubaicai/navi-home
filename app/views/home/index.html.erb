@@ -1,6 +1,11 @@
 <nav class="navbar navbar-light">
   <div class="justify-content-center">
-    <a class="text-success nav-item"><%= notice %></a>
+    <a class="invisible"><%= notice %></a>
+    <% if notice %>
+      <script>
+          console.log("<%= notice %>")
+      </script>
+    <% end %>
     <a class="text-danger nav-item"><%= alert %></a>
   </div>
   <div class="justify-content-end">
@@ -26,13 +31,48 @@
 
 <div class="row" style="height: 50px;"></div>
 
-<div style="max-width: 893px;margin: 0 auto;text-align: center;">
+<div style="max-width: 900px;margin: 0 auto;text-align: center;">
   <div class="card" style="text-align: left;">
     <div class="card-header">
       我的导航
     </div>
     <div class="card-body">
-
+      <div>
+        <button type="button" class="btn btn-outline-success" style="width:130px;height:44px;float: left;"></button>
+        <div class="row" style="width: calc(100% - 130px);float: left;margin-right: 0;margin-left: 0;">
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-outline-success" style="width:130px;height:44px;float: left;"></button>
+        <div class="row" style="width: calc(100% - 130px);float: left;margin-right: 0;margin-left: 0;">
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-outline-success" style="width:130px;height:44px;float: left;"></button>
+        <div class="row" style="width: calc(100% - 130px);float: left;margin-right: 0;margin-left: 0;">
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+          <button type="button" class="btn btn-outline-primary" style="width:182px;height:44px;"></button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
