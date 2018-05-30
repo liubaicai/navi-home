@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light">
+<nav class="navbar navbar-light" style="font-size: 14px;">
   <div class="justify-content-center">
     <a class="invisible"><%= notice %></a>
     <% if notice %>
@@ -19,6 +19,8 @@
     <% end %>
   </div>
 </nav>
+
+<div class="row" style="height: 20px;"></div>
 
 <%= image_tag('bd_logo.png', :size => "270x129", :class => 'rounded mx-auto d-block') %>
 
@@ -42,12 +44,12 @@
     <div class="card" style="text-align: left;">
       <div class="card-header" style="padding-top: 0; padding-bottom: 0;">
         <nav class="navbar navbar-light bg-light">
-          <span class="navbar-brand">
+          <span class="navbar-brand" style="font-size: 14px;">
             我的导航
           </span>
-          <a class="justify-content-end" href="#">
+          <button class="justify-content-end btn btn-link" type="button" style="font-size: 13px;">
             编辑
-          </a>
+          </button>
         </nav>
       </div>
       <div class="card-body">
