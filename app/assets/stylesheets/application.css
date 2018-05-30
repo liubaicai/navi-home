@@ -13,3 +13,68 @@
  *= require_tree .
  *= require_self
  */
+
+.calalog{
+    border-top:1px solid #f0f0f0;
+    font-size: 14px;
+}
+.calalog:last-child
+{
+    border-bottom:1px solid #f0f0f0;
+}
+
+.calalog-title{
+    width:130px;
+    height:44px;
+    float: left;
+    padding: 1px 10px;
+}
+.calalog-title .name-text{
+    width: 60px;
+    height: 42px;
+    line-height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calalog-items{
+    width: calc(100% - 130px);
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.calalog-item{
+    width:182px;
+    height:44px;
+}
+.calalog-item:hover{
+    background-color: #EFEFEF;
+}
+
+.calalog-item .nav-icon {
+    margin-left: 15px;
+    margin-top: 12px;
+    float: left;
+}
+
+.calalog-item .nav-text{
+    line-height: 41px;
+    height: 41px;
+    margin-left: 5px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    width: 136px;
+    float: left;
+}
+.calalog-item .nav-text .nav-text-content{
+    max-width: 100%;
+    _width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
