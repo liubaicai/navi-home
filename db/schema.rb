@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180529135607) do
+ActiveRecord::Schema.define(version: 20180530034903) do
 
   create_table "catalogs", force: :cascade do |t|
     t.string   "title",      default: ""
     t.integer  "user_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "sort_by",    default: 0,  null: false
     t.index ["user_id"], name: "index_catalogs_on_user_id"
   end
 
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(version: 20180529135607) do
     t.integer  "catalog_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "sort_by",    default: 0,  null: false
     t.index ["catalog_id"], name: "index_links_on_catalog_id"
     t.index ["user_id"], name: "index_links_on_user_id"
   end
