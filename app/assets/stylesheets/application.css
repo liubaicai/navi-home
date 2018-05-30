@@ -71,7 +71,7 @@ body{
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
-    width: 136px;
+    max-width: 136px;
     float: left;
 }
 .calalog-item .nav-text .nav-text-content{
