@@ -14,6 +14,9 @@
  *= require_self
  */
 
+body{
+}
+
 .calalog{
     border-top:1px solid #f0f0f0;
     font-size: 14px;
