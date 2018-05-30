@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180530034903) do
+ActiveRecord::Schema.define(version: 20180530073839) do
 
   create_table "catalogs", force: :cascade do |t|
     t.string   "title",      default: ""
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20180530034903) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "sort_by",    default: 0,  null: false
+    t.string   "url",        default: ""
+    t.string   "icon",       default: ""
     t.index ["catalog_id"], name: "index_links_on_catalog_id"
     t.index ["user_id"], name: "index_links_on_user_id"
   end
