@@ -76,45 +76,5 @@
   </div>
 
   <!-- EditModal -->
-  <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog"
-       aria-labelledby="editModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 900px;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalCenterTitle">编辑</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <table class="table table-responsive table-striped">
-            <thead>
-            <tr>
-              <th scope="col">Icon</th>
-              <th scope="col" >Title</th>
-              <th scope="col">Url</th>
-              <th scope="col">Catalog</th>
-              <th scope="col">Sortby</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% current_user.links.each do |link| %>
-              <tr>
-                <td><div style="width: 50px;text-align: center;"><img src="<%= link.icon %>" height="24" width="24"></div></td>
-                <td><input style="width: 120px;" value="<%= link.title %>"></td>
-                <td><input style="width: 300px;" value="<%= link.url %>"></td>
-                <td><input style="width: 80px;" value="<%= link.catalog.title %>"></td>
-                <td><input style="width: 50px;" value="<%= link.sort_by %>"></td>
-              </tr>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render "editModal" %>
 <% end %>

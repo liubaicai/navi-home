@@ -1,0 +1,135 @@
+
+<!-- EditModal -->
+<div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog"
+     aria-labelledby="editModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 900px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalCenterTitle">编辑</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        <% current_user.catalogs.each do |catalog| %>
+          <div id="calalog_<%= catalog.id %>" class="calalog clearfix">
+            <div class="calalog-title" >
+              <span class="drag-handle">☰</span>
+              <span class="name-text"><%= catalog.title %></span>
+              <button id="del_catalog_<%= catalog.id %>" type="button" class="btn btn-link float-right del">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div id="items_<%= catalog.id %>" class="row calalog-items">
+              <% catalog.links.each do |link| %>
+                <div id="link_<%= catalog.id %>_<%= link.id %>" class="calalog-item text-dark"
+                     style="border:1px dashed rgba(125,125,125,0.5);">
+                  <img src="<%= link.icon %>" height="16" width="16" class="nav-icon">
+                  <div class="nav-text">
+                    <span class="nav-text-content"><%= link.title %></span>
+                  </div>
+                  <button id="del_link_<%= catalog.id %>_<%= link.id %>" type="button" class="btn btn-link float-right del">
+                    <span>&times;</span>
+                  </button>
+                </div>
+              <% end %>
+            </div>
+            <script>
+                var el = document.getElementById('items_<%= catalog.id %>');
+                var sortable = Sortable.create(el,{
+                    group: "items_<%= catalog.id %>",
+                    onEnd: function (/**Event*/evt) {
+                        console.log(evt.item.id);
+                        console.log(evt.oldIndex);
+                        console.log(evt.newIndex);
+                        $('#editModalCenter').modal('handleUpdate');
+                    },
+                });
+            </script>
+          </div>
+        <% end %>
+        <div class="modal fade" id="newCatalogModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">新建分类</h5>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="$('#newCatalogModal').modal('hide')">Close</button>
+                <button type="button" class="btn btn-primary" onclick="newCatalogSave()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="newLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">新建链接</h5>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="$('#newLinkModal').modal('hide')">Close</button>
+                <button type="button" class="btn btn-primary" onclick="newLinkSave()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+          var el = document.getElementById('modal-body');
+          var sortable = Sortable.create(el,{
+              group: "card-body",
+              handle: ".calalog-title",
+              onEnd: function (/**Event*/evt) {
+                  console.log(evt.item.id);
+                  console.log(evt.oldIndex);
+                  console.log(evt.newIndex);
+                  $('#editModalCenter').modal('handleUpdate');
+              },
+          });
+      </script>
+      <div class="modal-footer">
+        <div style="width: 100%;">
+          <button type="button" class="btn btn-link" data-toggle="modal" data-target="#newCatalogModal">
+            <span class="text-dark" style="font-size: 14px;">+分类</span>
+          </button>
+          <button type="button" class="btn btn-link" data-toggle="modal" data-target="#newLinkModal">
+            <span class="text-dark" style="font-size: 14px;">+链接</span>
+          </button>
+        </div>
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.reload();">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    $(".del").click(function(event) {
+        console.log(this.id)
+        event.preventDefault();
+        event.stopPropagation();
+    });
+    $(".calalog-item").click(function(event) {
+        console.log(this.id)
+    });
+    
+    function newCatalogSave() {
+        $('#newCatalogModal').modal('hide');
+    }
+
+    function newLinkSave() {
+        $('#newLinkModal').modal('hide');
+    }
+</script>
+
+<script>
+    $('#editModalCenter').modal('show');
+</script>
