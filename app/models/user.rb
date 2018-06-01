@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :catalogs
-  has_many :links
+  has_many :catalogs, -> { order 'sort_by asc' }
+  has_many :links, -> { order 'sort_by asc' }
 
 end

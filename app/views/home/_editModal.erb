@@ -63,13 +63,13 @@
             </div>
             <div class="modal-body">
               <img :src="new_link_icon" height="16" width="16" class="nav-icon">
+              <input type="text" class="form-control" placeholder="地址" v-model="new_link_url">
+              <input type="text" class="form-control" placeholder="标题" v-model="new_link_title" style="margin-bottom: 5px;margin-top: 5px;">
               <select class="form-control" v-model="new_link_catalog_id">
-                <option v-for="catalog in catalogs" v-bind:value="catalog.id">
+                <option v-for="catalog in catalogs" :value="catalog.id">
                   {{ catalog.title }}
                 </option>
               </select>
-              <input type="text" class="form-control" placeholder="标题" v-model="new_link_title">
-              <input type="text" class="form-control" placeholder="地址" v-model="new_link_url">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" onclick="$('#newLinkModal').modal('hide')">Close</button>
@@ -120,7 +120,15 @@
             uploadCatalogs: function () {
                 console.log(this.catalogs)
                 console.log(JSON.stringify(this.catalogs))
-                $('#editModalCenter').modal('hide');
+                axios.post('/set_catalogs', {
+                    data: JSON.stringify(this.catalogs),
+                    authenticity_token: '<%= form_authenticity_token %>'
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+                //$('#editModalCenter').modal('hide');
                 //location.reload();
             },
             closeCatalogsModal: function () {
@@ -162,6 +170,4 @@
             }
         }
     })
-
-    $('#editModalCenter').modal('show');
 </script>
