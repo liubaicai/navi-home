@@ -12,6 +12,7 @@ class HomeController < ApplicationController
     uri = URI(params["url"])
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
       request = Net::HTTP::Head.new uri
+      request['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
       http.request request do |response|
         if response.code.to_i>299
           render plain: '/ie.png'
