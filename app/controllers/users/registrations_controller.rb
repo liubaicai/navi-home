@@ -16,39 +16,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.save
     yield resource if block_given?
     if resource.persisted?
-      catalog1 = Catalog.create(title: '综合', sort_by:1, user_id:resource.id);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog1.id, sort_by:1);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog1.id, sort_by:2);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog1.id, sort_by:3);
-      catalog2 = Catalog.create(title: '社区', sort_by:2, user_id:resource.id);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog2.id, sort_by:1);
-      catalog3 = Catalog.create(title: '影视', sort_by:3, user_id:resource.id);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog3.id, sort_by:1);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog3.id, sort_by:2);
-      catalog4 = Catalog.create(title: '工具', sort_by:4, user_id:resource.id);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog4.id, sort_by:1);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog4.id, sort_by:2);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog4.id, sort_by:3);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog4.id, sort_by:4);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog4.id, sort_by:5);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog4.id, sort_by:6);
-      catalog5 = Catalog.create(title: '购物', sort_by:5, user_id:resource.id);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog5.id, sort_by:1);
-      Link.create(title: '微博', url: 'http://weibo.com/?is_search=1',icon: 'https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/icon/54.png?1',
-                  user_id:resource.id, catalog_id:catalog5.id, sort_by:2);
+      # catalog1 = Catalog.create(title: '综合', sort_by:1, user_id:resource.id);
+      # catalog2 = Catalog.create(title: '社区', sort_by:2, user_id:resource.id);
+      # catalog3 = Catalog.create(title: '影视', sort_by:3, user_id:resource.id);
+      # catalog4 = Catalog.create(title: '工具', sort_by:4, user_id:resource.id);
+      # catalog5 = Catalog.create(title: '购物', sort_by:5, user_id:resource.id);
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)

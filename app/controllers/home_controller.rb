@@ -1,7 +1,24 @@
+require 'open-uri'
+require 'net/http'
+
 class HomeController < ApplicationController
   def index
     if current_user
       @catalogs = current_user.catalogs.as_json(:include => 'links').to_json
+    end
+  end
+
+  def test_icon_url
+    uri = URI(params["url"])
+    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+      request = Net::HTTP::Head.new uri
+      http.request request do |response|
+        if response.code.to_i>299
+          render plain: '/ie.png'
+        else
+          render plain: params["url"]
+        end
+      end
     end
   end
 
@@ -38,16 +55,16 @@ class HomeController < ApplicationController
             end
           end
 
-          item['links'].each_with_index do |link,index2|
-            if link['id'] >= 0
-              link = Link.where(:id => link['id'],:user_id => current_user.id).first
-              link.title = link['title']
-              link.url = link['url']
-              link.icon = link['icon']
+          item['links'].each_with_index do |link2,index2|
+            if link2['id'] >= 0
+              link = Link.where(:id => link2['id'],:user_id => current_user.id).first
+              link.title = link2['title']
+              link.url = link2['url']
+              link.icon = link2['icon']
               link.sort_by = index2+1
               link.save
             else
-              Link.create(title: link['title'], url: link['url'],icon: link['icon'],
+              Link.create(title: link2['title'], url: link2['url'],icon: link2['icon'],
                           user_id:current_user.id, catalog_id:catalog.id, sort_by:(index2+1));
             end
           end
