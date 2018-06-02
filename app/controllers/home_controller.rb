@@ -10,15 +10,29 @@ class HomeController < ApplicationController
 
   def test_icon_url
     uri = URI(params["url"])
-    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
-      request = Net::HTTP::Head.new uri
-      request['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
-      http.request request do |response|
-        puts
-        if response.code.to_i>299 || response['content-type'].include?('text/html')
-          render plain: '/ie.png'
-        else
-          render plain: params["url"]
+    icons_path = File.join(Rails.root,'public','icons')
+    icon_path = File.join(icons_path,uri.host.to_s.gsub('.','_')+'.ico')
+    if File.exist?(icon_path)
+      render plain: '/icons/'+uri.host.to_s.gsub('.','_')+'.ico'
+    else
+      Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+        request = Net::HTTP::Get.new uri
+        request['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
+        http.request request do |response|
+          puts
+          if response.code.to_i>299 || response['content-type'].include?('text/html')
+            render plain: '/ie.png'
+          else
+            File.delete(icon_path) if File.exist?(icon_path)
+            puts uri
+            puts icon_path
+            open icon_path, 'wb' do |io|
+              response.read_body do |chunk|
+                io.write chunk
+              end
+            end
+            render plain: '/icons/'+uri.host.to_s.gsub('.','_')+'.ico'
+          end
         end
       end
     end

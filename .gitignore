@@ -17,6 +17,9 @@
 !/log/.keep
 !/tmp/.keep
 
+/public/icons/*
+!/public/icons/.keep
+
 # Ignore Byebug command history file.
 .byebug_history
 

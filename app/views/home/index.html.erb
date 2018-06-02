@@ -62,7 +62,7 @@
             </div>
             <div class="row calalog-items">
               <% catalog.links.each do |link| %>
-                <a class="calalog-item text-dark" href="<%= link.url %>" target="_blank">
+                <a class="calalog-item text-dark" onclick="window.open('<%= link.url %>')">
                   <img src="<%= link.icon %>" height="16" width="16" class="nav-icon">
                   <div class="nav-text">
                     <span class="nav-text-content"><%= link.title %></span>
