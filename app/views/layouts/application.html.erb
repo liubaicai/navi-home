@@ -51,7 +51,8 @@
             new_link_url: '',
             new_link_icon: '',
             edit_catalog: null,
-            edit_link: null
+            edit_link: null,
+            drag: false
         },
         computed: {
             isShowNewLink: function () {
@@ -130,9 +131,17 @@
                 this.edit_catalog = catalog
                 $('#newCatalogModal').modal('show');
             },
+            editCatalogCancel: function(){
+                $('#newCatalogModal').modal('hide');
+                this.edit_catalog=null;
+            },
             editLink: function(link){
                 this.edit_link = link
                 $('#newLinkModal').modal('show');
+            },
+            editLinkCancel: function(){
+                $('#newLinkModal').modal('hide');
+                this.edit_link=null;
             },
             saveCatalog: function () {
                 if(this.edit_catalog!=null){

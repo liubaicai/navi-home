@@ -39,6 +39,7 @@
         </draggable>
 
       </div>
+
       <div class="modal fade" id="newCatalogModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -59,12 +60,13 @@
               </template>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="$('#newCatalogModal').modal('hide');edit_catalog=null;">Close</button>
+              <button type="button" class="btn btn-secondary" @click="editCatalogCancel">Close</button>
               <button type="button" class="btn btn-primary" @click="saveCatalog">Save</button>
             </div>
           </div>
         </div>
       </div>
+
       <div class="modal fade" id="newLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -107,7 +109,7 @@
               </template>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="$('#newLinkModal').modal('hide');edit_link=null;">Close</button>
+              <button type="button" class="btn btn-secondary" @click="editLinkCancel">Close</button>
               <button type="button" class="btn btn-primary" @click="saveLink">Save</button>
             </div>
           </div>
