@@ -41,9 +41,13 @@ class HomeController < ApplicationController
       catalogs.each_with_index do |item,index|
         if item['id'] >= 0
           catalog = Catalog.where(:id => item['id'],:user_id => current_user.id).first
-          catalog.title = item['title']
-          catalog.sort_by = index+1
-          catalog.save
+          unless catalog.nil?
+            catalog.title = item['title']
+            catalog.sort_by = index+1
+            catalog.save
+          else
+            catalog = Catalog.create(title: item['title'], sort_by:(index+1), user_id:current_user.id);
+          end
 
           links_id = Array.new
           links_del = Array.new
@@ -59,11 +63,17 @@ class HomeController < ApplicationController
           item['links'].each_with_index do |link2,index2|
             if link2['id'] >= 0
               link = Link.where(:id => link2['id'],:user_id => current_user.id).first
-              link.title = link2['title']
-              link.url = link2['url']
-              link.icon = link2['icon']
-              link.sort_by = index2+1
-              link.save
+              unless link.nil?
+                link.title = link2['title']
+                link.url = link2['url']
+                link.icon = link2['icon']
+                link.sort_by = index2+1
+                link.catalog_id = catalog.id
+                link.save
+              else
+                Link.create(title: link2['title'], url: link2['url'],icon: link2['icon'],
+                            user_id:current_user.id, catalog_id:catalog.id, sort_by:(index2+1));
+              end
             else
               Link.create(title: link2['title'], url: link2['url'],icon: link2['icon'],
                           user_id:current_user.id, catalog_id:catalog.id, sort_by:(index2+1));

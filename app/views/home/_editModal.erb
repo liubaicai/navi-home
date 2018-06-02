@@ -237,6 +237,13 @@
             },
             saveLink: function () {
                 if(this.edit_link!=null){
+                    for (var i=0;i<this.catalogs.length;i++){
+                        if(this.catalogs[i].id == this.edit_link.catalog_id && this.catalogs[i].links.indexOf(this.edit_link)<0){
+                            this.catalogs[i].links.push(this.edit_link)
+                        }else if(this.catalogs[i].id != this.edit_link.catalog_id && this.catalogs[i].links.indexOf(this.edit_link)>=0){
+                            this.removeFromList(this.catalogs[i].links,this.edit_link);
+                        }
+                    }
                     $('#newLinkModal').modal('hide');
                     this.edit_link=null;
                 }else {
