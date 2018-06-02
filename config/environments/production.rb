@@ -15,7 +15,9 @@ Rails.application.configure do
       :domain => ENV['SMTP_DOMAIN'],
       :authentication => :login,
       :user_name => ENV['SMTP_USERNAME'],
-      :password => ENV['SMTP_PASSWORD']
+      :password => ENV['SMTP_PASSWORD'],
+      :enable_starttls_auto => true,
+      :tls => true
   }
 
   # Eager load code on boot. This eager loads most of Rails and
