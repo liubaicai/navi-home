@@ -55,23 +55,19 @@
         </nav>
       </div>
       <div class="card-body">
-        <% current_user.catalogs.each do |catalog| %>
-          <div class="calalog clearfix">
-            <div class="calalog-title" >
-              <span class="name-text"><%= catalog.title %></span>
-            </div>
-            <div class="row calalog-items">
-              <% catalog.links.each do |link| %>
-                <a class="calalog-item text-dark" onclick="window.open('<%= link.url %>')">
-                  <img src="<%= link.icon %>" height="16" width="16" class="nav-icon">
-                  <div class="nav-text">
-                    <span class="nav-text-content"><%= link.title %></span>
-                  </div>
-                </a>
-              <% end %>
-            </div>
+        <div v-for="catalog in catalogs" :key="catalog.id" class="calalog clearfix">
+          <div class="calalog-title" >
+            <span class="name-text">{{catalog.title}}</span>
           </div>
-        <% end %>
+          <div class="row calalog-items">
+            <a class="calalog-item text-dark" @click="openLink(link.url)" v-for="link in catalog.links" :key="link.id">
+              <img :src="link.icon" height="16" width="16" class="nav-icon">
+              <div class="nav-text">
+                <span class="nav-text-content">{{link.title}}</span>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
