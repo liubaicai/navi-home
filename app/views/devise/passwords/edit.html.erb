@@ -1,25 +1,23 @@
-<h2>Change your password</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+<div class="signin-body">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "form-reg" }) do |f| %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
+    <h2>重置密码</h2>
+    <%= f.hidden_field :reset_password_token %>
+
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+      <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder:'密码 (至少'+@minimum_password_length.to_s+'字符)', style:'margin-bottom:0;' %>
+    <% else %>
+      <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder:'密码' %>
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-  </div>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder:'确认密码' %>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+    <% resource.errors.full_messages.each do |msg| %>
+      <a class="text-danger"><%= msg %></a>
+    <% end %>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+    <%= f.submit "更新", class: 'btn btn-lg btn-primary btn-block login-btn' %>
 
-<%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
+  <% end %>
+</div>
