@@ -1,29 +1,28 @@
-<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<div class="signin-body">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-reg" }) do |f| %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <h2>Sign up</h2>
 
-  <div class="field">
-    <%= f.label :password %>
+    <%= f.label :email, class: 'sr-only' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder:'Email address' %>
+
+    <%= f.label :password, class: 'sr-only' %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+      <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder:'Password('+@minimum_password_length.to_s+' characters minimum)', style:'margin-bottom:0;' %>
+    <% else %>
+      <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder:'Password', style:'margin-bottom:0;' %>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+    <%= f.label :password_confirmation, class: 'sr-only' %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder:'Password Confirmation' %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+    <% resource.errors.full_messages.each do |msg| %>
+      <a class="text-danger"><%= msg %></a>
+    <% end %>
+
+    <%= f.submit "Sign up", class: 'btn btn-lg btn-primary btn-block' %>
+
+    <%= render "devise/shared/links" %>
 <% end %>
-
-<%= render "devise/shared/links" %>
+</div>
