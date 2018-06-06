@@ -7,7 +7,7 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder:'邮箱' %>
 
     <% resource.errors.full_messages.each do |msg| %>
-      <a class="text-danger"><%= msg %></a>
+      <div class="text-danger"><%= msg %></div>
     <% end %>
     <%= f.submit "发送密码重置信息", class: 'btn btn-lg btn-primary btn-block login-btn' %>
 

@@ -7,6 +7,8 @@
     <%= f.label :email, class: 'sr-only' %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder:'邮箱' %>
 
+    <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'form-control', placeholder:'用户名', style:'margin-bottom:10px;' %>
+
     <%= f.label :password, class: 'sr-only' %>
     <% if @minimum_password_length %>
       <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder:'密码 (至少'+@minimum_password_length.to_s+'字符)', style:'margin-bottom:0;' %>
@@ -18,7 +20,7 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder:'确认密码' %>
 
     <% resource.errors.full_messages.each do |msg| %>
-      <a class="text-danger"><%= msg %></a>
+      <div class="text-danger"><%= msg %></div>
     <% end %>
 
     <%= f.submit "注册", class: 'btn btn-lg btn-primary btn-block login-btn' %>

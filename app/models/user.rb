@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :catalogs, -> { order 'sort_by asc' }, dependent: :destroy
   has_many :links, -> { order 'sort_by asc' }, dependent: :destroy
+  validates :username, presence: true
 
 end

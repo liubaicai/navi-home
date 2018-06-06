@@ -13,7 +13,7 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder:'确认密码' %>
 
     <% resource.errors.full_messages.each do |msg| %>
-      <a class="text-danger"><%= msg %></a>
+      <div class="text-danger"><%= msg %></div>
     <% end %>
 
     <%= f.submit "更新", class: 'btn btn-lg btn-primary btn-block login-btn' %>

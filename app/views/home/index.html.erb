@@ -5,7 +5,8 @@
   </div>
   <div class="justify-content-end">
     <% if current_user %>
-      <%= link_to(current_user.email, edit_registration_path(:user)) %> |
+      Hi,
+      <%= link_to(current_user.username, edit_registration_path(:user)) %> |
       <%= link_to('注销', destroy_user_session_path, :method => :delete) %>
     <% else %>
       <%= link_to('登录', new_session_path(:user)) %> |

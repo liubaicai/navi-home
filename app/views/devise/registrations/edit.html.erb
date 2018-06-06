@@ -7,6 +7,8 @@
 
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder:'邮箱' %>
 
+    <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'form-control', placeholder:'用户名', style:'margin-bottom:10px;' %>
+
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
@@ -18,7 +20,7 @@
     <%= f.password_field :current_password, autocomplete: "off", class: 'form-control', placeholder:'当前密码' %>
 
     <% resource.errors.full_messages.each do |msg| %>
-      <a class="text-danger"><%= msg %></a>
+      <div class="text-danger"><%= msg %></div>
     <% end %>
 
     <%= f.submit "更新", class: 'btn btn-lg btn-primary btn-block login-btn' %>
@@ -29,7 +31,7 @@
       <%#= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
 <!--    </p>-->
 
-    <%= link_to "取消", :back, class: 'btn btn-lg btn-secondary btn-block login-btn' %>
+    <%= link_to "取消", '/', class: 'btn btn-lg btn-secondary btn-block login-btn' %>
 
   <% end %>
 </div>
