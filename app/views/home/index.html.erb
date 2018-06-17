@@ -18,6 +18,7 @@
 <div class="row" style="height: 20px;"></div>
 
 <h1 class="text-hide">自定义桌面导航</h1>
+
 <%= image_tag('bd_logo.png', :size => "270x129", :class => 'rounded mx-auto d-block') %>
 
 <% if current_user %>
@@ -26,11 +27,16 @@
   <div class="row" style="height: 50px;"></div>
 <% end %>
 
-<form class="input-group" action="//cn.bing.com/search" method="get" target="_self" style="max-width: 641px;margin: 0 auto;text-align: center;">
+<form class="input-group" method="get" target="_self" style="max-width: 641px;margin: 0 auto;text-align: center;">
 <!--  <input name="ensearch" value="1" type="hidden">-->
   <input name="q" type="text" class="form-control" placeholder="">
   <div class="input-group-append">
-    <button class="btn btn-primary" type="submit" style="width: 117px">百度一下</button>
+    <button class="btn btn-secondary" type="button" onclick="window.open('//www.baidu.com/s?wd='+document.getElementsByName('q')[0].value)" s
+            tyle="width: 117px">百度</button>
+    <button class="btn btn-info" type="button" onclick="window.open('//cn.bing.com/search?q='+document.getElementsByName('q')[0].value)" s
+            tyle="width: 117px">必应</button>
+    <button class="btn btn-primary" type="button" onclick="window.open('//www.google.com/search?q='+document.getElementsByName('q')[0].value)" s
+            tyle="width: 117px">谷歌</button>
   </div>
 </form>
 
