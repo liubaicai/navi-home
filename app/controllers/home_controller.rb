@@ -8,6 +8,14 @@ class HomeController < ApplicationController
     end
   end
 
+  def search
+    if params["q"].nil?
+      redirect_to "https://www.google.com/", status: 301
+    else
+      redirect_to "https://www.google.com/search?q=#{params["q"]}", status: 301
+    end
+  end
+
   def test_icon_url
     uri = URI(params["url"])
     icons_path = File.join(Rails.root,'public','icons')
