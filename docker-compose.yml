@@ -7,3 +7,6 @@ services:
     ports:
       - "9011:3000"
     restart: always
+    environment:
+      - SECRET_KEY_BASE="a80937d98680816e324137a77cfeadf956d53ae05905a8f6dc1e2de302a922932956bb469e0017459d3abaceef2a5a7bd18142d6bf1b643c97ca4a904147d23a"
+      - RAILS_SERVE_STATIC_FILES=true
