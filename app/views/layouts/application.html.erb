@@ -17,6 +17,21 @@
     <script src="//lib.baomitu.com/Vue.Draggable/2.16.0/vuedraggable.min.js"></script>
     <script src="//lib.baomitu.com/jquery-url-parser/2.3.1/purl.min.js"></script>
     <script src="//lib.baomitu.com/axios/0.18.0/axios.min.js"></script>
+    <style>
+      #footer {
+        height: 40px;
+        line-height: 40px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background: #333;
+        color: #fff;
+        font-family: Arial;
+        font-size: 12px;
+        letter-spacing: 1px;
+      }
+    </style>
 </head>
 
 <body>
@@ -24,6 +39,7 @@
 <div id="app" class="container-fluid">
   <%= yield %>
 </div>
+<div id="footer"><a href="http://www.beian.miit.gov.cn">京ICP备14022168号-1</a></div>
 
 <script>
     <% if notice %>
