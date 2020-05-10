@@ -3,7 +3,7 @@ services:
   web:
     build: .
     volumes:
-      - ./db:/myapp/db
+      - ./data:/myapp/data
       - ./log:/myapp/log
     ports:
       - "9011:3000"
