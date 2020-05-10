@@ -21,6 +21,7 @@
 
 /public/icons/*
 !/public/icons/.keep
+public/assets/
 
 # Ignore Byebug command history file.
 .byebug_history
