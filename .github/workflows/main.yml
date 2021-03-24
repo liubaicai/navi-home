@@ -1,0 +1,22 @@
+name: ror deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DPHOST }}
+          username: ${{ secrets.DPUSERNAME }}
+          password: ${{ secrets.DPPASSWORD }}
+          port: 22
+          script: "cd /home/deploy/code/navi-home && git checkout . && git pull && docker-compose up -d --build"
