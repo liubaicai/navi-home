@@ -1,22 +1,26 @@
-name: ror deploy
+name: build navi-home
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - 'master'
   workflow_dispatch:
 
 jobs:
-  deploy:
+  docker:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Run deploy
-        uses: appleboy/ssh-action@master
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to GHCR
+        uses: docker/login-action@v1
         with:
-          host: ${{ secrets.DPHOST }}
-          username: ${{ secrets.DPUSERNAME }}
-          password: ${{ secrets.DPPASSWORD }}
-          port: 22
-          script: "cd /home/deploy/code/navi-home && git checkout . && git pull && docker-compose up -d --build"
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR }}
+      - name: Build and push Server
+        uses: docker/build-push-action@v2
+        with:
+          context: service
+          push: true
+          tags: ghcr.io/liubaicai/navi-home:latest
