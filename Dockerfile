@@ -1,16 +1,6 @@
-FROM ruby:2.7-alpine
+FROM ruby:2.7
 
-ENV BUILD_PACKAGES="curl-dev ruby-dev build-base bash shared-mime-info" \
-    DEV_PACKAGES="zlib-dev libxml2-dev libxslt-dev tzdata yaml-dev sqlite-dev postgresql-dev mysql-dev" \
-    RUBY_PACKAGES="ruby-json yaml nodejs"
-
-RUN apk update && \
-    apk upgrade && \
-    apk add --update\
-    $BUILD_PACKAGES \
-    $DEV_PACKAGES \
-    $RUBY_PACKAGES && \
-    rm -rf /var/cache/apk/*
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 
 RUN mkdir /myapp
 WORKDIR /myapp
@@ -19,6 +9,10 @@ RUN bundle install
 COPY . /myapp
 
 RUN rails assets:precompile
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 
 EXPOSE 3000
 
