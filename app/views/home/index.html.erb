@@ -31,18 +31,10 @@
 <!--  <input name="ensearch" value="1" type="hidden">-->
   <input name="q" type="text" class="form-control" placeholder="">
   <div class="input-group-append">
-    <button class="btn btn-primary" type="button"
-            onclick="window.open('//www.google.com/search?q='+document.getElementsByName('q')[0].value)"
-            style="width: 117px">百度一下</button>
+    <button class="btn btn-secondary" type="button" onclick="window.open('//www.baidu.com/s?wd='+document.getElementsByName('q')[0].value)" style="width: 117px">百度</button>
+    <button class="btn btn-info" type="button" onclick="window.open('//cn.bing.com/search?q='+document.getElementsByName('q')[0].value)" style="width: 117px">必应</button>
+    <button class="btn btn-primary" type="button" onclick="window.open('//www.google.com/search?q='+document.getElementsByName('q')[0].value)" style="width: 117px">谷歌</button>
   </div>
-<!--  <div class="input-group-append">-->
-<!--    <button class="btn btn-secondary" type="button" onclick="window.open('//www.baidu.com/s?wd='+document.getElementsByName('wd')[0].value)" s-->
-<!--            tyle="width: 117px">百度</button>-->
-<!--    <button class="btn btn-info" type="button" onclick="window.open('//cn.bing.com/search?q='+document.getElementsByName('wd')[0].value)" s-->
-<!--            tyle="width: 117px">必应</button>-->
-<!--    <button class="btn btn-primary" type="button" onclick="window.open('//www.google.com/search?q='+document.getElementsByName('wd')[0].value)" s-->
-<!--            tyle="width: 117px">谷歌</button>-->
-<!--  </div>-->
 </form>
 
 <div class="row" style="height: 50px;"></div>
