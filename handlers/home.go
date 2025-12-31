@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"crypto/tls"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -105,7 +104,7 @@ func SetCatalogs(c *gin.Context) {
 		var catalog *models.Catalog
 		var err error
 
-		if item.ID >= 0 {
+		if item.ID > 0 {
 			catalog, err = models.GetCatalogByIDAndUserID(uint(item.ID), user.ID)
 			if err != nil {
 				// Catalog doesn't exist, create new one
@@ -119,7 +118,7 @@ func SetCatalogs(c *gin.Context) {
 				catalog.Save()
 			}
 		} else {
-			// New catalog (negative ID)
+			// New catalog (zero or negative ID)
 			catalog, err = models.CreateCatalog(item.Title, index+1, user.ID)
 			if err != nil {
 				continue
@@ -149,7 +148,7 @@ func SetCatalogs(c *gin.Context) {
 
 		// Process links
 		for linkIndex, linkData := range item.Links {
-			if linkData.ID >= 0 {
+			if linkData.ID > 0 {
 				link, err := models.GetLinkByIDAndUserID(uint(linkData.ID), user.ID)
 				if err != nil {
 					// Link doesn't exist, create new one
@@ -163,7 +162,7 @@ func SetCatalogs(c *gin.Context) {
 					link.Save()
 				}
 			} else {
-				// New link (negative ID)
+				// New link (zero or negative ID)
 				models.CreateLink(linkData.Title, linkData.URL, linkData.Icon, linkIndex+1, user.ID, catalog.ID)
 			}
 		}
@@ -203,9 +202,6 @@ func TestIconURL(c *gin.Context) {
 	// Download the icon
 	client := &http.Client{
 		Timeout: 10 * time.Second,
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
 	}
 
 	req, err := http.NewRequest("GET", iconURL, nil)

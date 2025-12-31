@@ -41,6 +41,7 @@ docker-compose up -d
 - `PORT`: 服务端口，默认 3000
 - `SECRET_KEY_BASE`: Session 密钥
 - `GIN_MODE`: 运行模式（debug/release）
+- `DATA_DIR`: 数据目录路径，默认 data
 
 运行截图:
 ![demo](https://raw.githubusercontent.com/liubaicai/navi-home/master/demo.png)

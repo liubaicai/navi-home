@@ -14,8 +14,13 @@ var DB *gorm.DB
 func InitDB() {
 	var err error
 
+	// Get data directory from environment or use default
+	dataDir := os.Getenv("DATA_DIR")
+	if dataDir == "" {
+		dataDir = "data"
+	}
+
 	// Ensure data directory exists
-	dataDir := "data"
 	if err := os.MkdirAll(dataDir, 0755); err != nil {
 		log.Fatalf("Failed to create data directory: %v", err)
 	}
