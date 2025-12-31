@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+  <script src="//cdn.jsdelivr.net/npm/axios@1.7.7/dist/axios.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sortablejs@1.6.0/Sortable.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/vuedraggable@2.16.0/dist/vuedraggable.min.js"></script>
+  <link rel="stylesheet" href="/static/css/application.css">
+  <style>
+    #footer {
+      height: 40px;
+      line-height: 40px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-family: Arial;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="app" class="container-fluid">
+  <nav class="navbar navbar-light" style="font-size: 14px;">
+    <div class="justify-content-center">
+    </div>
+    <div class="justify-content-end">
+      {{if .User}}
+        Hi,
+        <a href="/users/edit">{{.User.Username}}</a> |
+        <a href="/users/sign_out">注销</a>
+      {{else}}
+        <a href="/users/sign_in">登录</a> |
+        <a href="/users/sign_up">注册</a>
+      {{end}}
+    </div>
+  </nav>
+
+  <div class="row" style="height: 20px;"></div>
+
+  <h1 class="text-hide">自定义桌面导航</h1>
+
+  <img src="/static/images/bd_logo.png" width="370" height="129" class="rounded mx-auto d-block">
+
+  {{if .User}}
+    <div class="row" style="height: 20px;"></div>
+  {{else}}
+    <div class="row" style="height: 50px;"></div>
+  {{end}}
+
+  <form class="input-group" action="//www.google.com/search" method="get" target="_self" style="max-width: 641px;margin: 0 auto;text-align: center;">
+    <input name="q" type="text" class="form-control" placeholder="">
+    <div class="input-group-append">
+      <button class="btn btn-secondary" type="button" onclick="window.open('//www.baidu.com/s?wd='+document.getElementsByName('q')[0].value)" style="width: 117px">百度</button>
+      <button class="btn btn-info" type="button" onclick="window.open('//cn.bing.com/search?q='+document.getElementsByName('q')[0].value)" style="width: 117px">必应</button>
+      <button class="btn btn-primary" type="button" onclick="window.open('//www.google.com/search?q='+document.getElementsByName('q')[0].value)" style="width: 117px">谷歌</button>
+    </div>
+  </form>
+
+  <div class="row" style="height: 50px;"></div>
+
+  {{if .User}}
+    <div style="max-width: 900px;margin: 0 auto;text-align: center;">
+      <div class="card" style="text-align: left;">
+        <div class="card-header" style="padding-top: 0; padding-bottom: 0;">
+          <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand" style="font-size: 14px;">
+              我的导航
+            </span>
+            <button class="justify-content-end btn btn-link" type="button" style="font-size: 13px;"
+                    data-toggle="modal" data-target="#editModalCenter">
+              编辑
+            </button>
+          </nav>
+        </div>
+        <div class="card-body">
+          <div v-for="catalog in catalogs" :key="catalog.id" class="calalog clearfix">
+            <div class="calalog-title" >
+              <span class="name-text">{{"{{catalog.title}}"}}</span>
+            </div>
+            <div class="row calalog-items">
+              <a class="calalog-item text-dark" @click="openLink(link.url)" v-for="link in catalog.links" :key="link.id">
+                <img :src="link.icon" height="16" width="16" class="nav-icon">
+                <div class="nav-text">
+                  <span class="nav-text-content">{{"{{link.title}}"}}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EditModal -->
+    <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="editModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 900px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalCenterTitle">编辑</h5>
+            <button type="button" class="close" @click="closeCatalogsModal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="modal-body" class="modal-body">
+
+            <draggable v-model="catalogs" :options="{group:'catalogs'}" @start="drag=true" @end="drag=false">
+              <div v-for="catalog in catalogs" :key="catalog.id">
+                <div class="calalog clearfix">
+                  <div class="calalog-title" @click="editCatalog(catalog)">
+                    <span class="drag-handle">☰</span>
+                    <span class="name-text">{{"{{catalog.title}}"}}</span>
+                    <button type="button" class="btn btn-link float-right del" @click.stop.prevent="deleteCatalog(catalog)">
+                      <span>&times;</span>
+                    </button>
+                  </div>
+                  <draggable v-model="catalog.links" :options="{group:catalog.id}" @start="drag=true" @end="drag=false" class="row calalog-items">
+                    <div v-for="link in catalog.links" :key="link.id" class="calalog-item text-dark"
+                         style="border:1px dashed rgba(125,125,125,0.5);"  @click="editLink(link)">
+                      <img :src="link.icon" height="16" width="16" class="nav-icon">
+                      <div class="nav-text">
+                        <span class="nav-text-content">{{"{{link.title}}"}}</span>
+                      </div>
+                      <button type="button" class="btn btn-link float-right del" @click.stop.prevent="deleteLink(catalog,link)">
+                        <span>&times;</span>
+                      </button>
+                    </div>
+                  </draggable>
+                </div>
+              </div>
+            </draggable>
+
+          </div>
+
+          <div class="modal fade" id="newCatalogModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <template v-if="edit_catalog==null">
+                    <h5 class="modal-title" id="exampleModalLongTitle">新建分类</h5>
+                  </template>
+                  <template v-else>
+                    <h5 class="modal-title" id="exampleModalLongTitle">编辑分类</h5>
+                  </template>
+                </div>
+                <div class="modal-body">
+                  <template v-if="edit_catalog==null">
+                    <input type="text" class="form-control" placeholder="新分类" v-model="new_catalog_title">
+                  </template>
+                  <template v-else>
+                    <input type="text" class="form-control" v-model="edit_catalog.title">
+                  </template>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="editCatalogCancel">Close</button>
+                  <button type="button" class="btn btn-primary" @click="saveCatalog">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="newLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <template v-if="edit_link==null">
+                    <h5 class="modal-title" id="exampleModalLongTitle">新建链接</h5>
+                  </template>
+                  <template v-else>
+                    <h5 class="modal-title" id="exampleModalLongTitle">编辑链接</h5>
+                  </template>
+                </div>
+                <div class="modal-body">
+                  <template v-if="edit_link==null">
+                    <input type="text" class="form-control" placeholder="地址" v-model="new_link_url">
+                    <div class="input-group" style="margin-bottom: 5px;margin-top: 5px;">
+                      <div class="input-group-prepend">
+                        <img :src="new_link_icon" height="24" width="24" class="nav-icon" style="margin: 6px">
+                      </div>
+                      <input type="text" class="form-control" placeholder="标题" v-model="new_link_title">
+                    </div>
+                    <select class="form-control" v-model="new_link_catalog_id">
+                      <option v-for="catalog in catalogs" :value="catalog.id">
+                        {{"{{ catalog.title }}"}}
+                      </option>
+                    </select>
+                  </template>
+                  <template v-else>
+                    <input type="text" class="form-control" v-model="edit_link.url">
+                    <div class="input-group" style="margin-bottom: 5px;margin-top: 5px;">
+                      <div class="input-group-prepend">
+                        <img :src="edit_link.icon" height="24" width="24" class="nav-icon" style="margin: 6px">
+                      </div>
+                      <input type="text" class="form-control" v-model="edit_link.title">
+                    </div>
+                    <select class="form-control" v-model="edit_link.catalog_id">
+                      <option v-for="catalog in catalogs" :value="catalog.id">
+                        {{"{{ catalog.title }}"}}
+                      </option>
+                    </select>
+                  </template>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="editLinkCancel">Close</button>
+                  <button type="button" class="btn btn-primary" @click="saveLink">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <div style="width: 100%;">
+              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#newCatalogModal">
+                <span class="text-dark" style="font-size: 14px;">+分类</span>
+              </button>
+              <button type="button" class="btn btn-link" data-toggle="modal" data-target="#newLinkModal" v-show="isShowNewLink">
+                <span class="text-dark" style="font-size: 14px;">+链接</span>
+              </button>
+            </div>
+            <button type="button" class="btn btn-primary" @click="uploadCatalogs">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{end}}
+</div>
+<div id="footer"><a href="http://www.beian.miit.gov.cn">京ICP备14022168号-1</a></div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            catalogs: null,
+            catalogs_str: '{{.Catalogs}}',
+            new_catalog_title: '',
+            new_link_catalog_id: '',
+            new_link_title: '',
+            new_link_url: '',
+            new_link_icon: '',
+            edit_catalog: null,
+            edit_link: null,
+            drag: false
+        },
+        computed: {
+            isShowNewLink: function () {
+                return this.catalogs && this.catalogs.length>0
+            }
+        },
+        created: function () {
+            if (this.catalogs_str && this.catalogs_str.length > 0) {
+                this.catalogs = JSON.parse(this.catalogs_str)
+            }else {
+                this.catalogs = JSON.parse('[]')
+            }
+        },
+        watch: {
+            'edit_link.url': function (newUrl, oldUrl) {
+                var that = this
+                if (oldUrl != null && newUrl != ''){
+                    var url = this.getBaseUrl(newUrl)+'/favicon.ico';
+                    axios.get('/test_icon_url',{
+                        params: {
+                            url: url
+                        }
+                    }).then(function (response) {
+                        if (that.edit_link != null) {
+                            that.edit_link.icon = response['data'];
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            },
+            new_link_url: function (newUrl, oldUrl) {
+                var that = this
+                if (newUrl==''){
+                    that.new_link_icon = ''
+                } else {
+                    var url = this.getBaseUrl(newUrl)+'/favicon.ico';
+                    axios.get('/test_icon_url',{
+                        params: {
+                            url: url
+                        }
+                    }).then(function (response) {
+                        that.new_link_icon = response['data'];
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        },
+        methods: {
+            getBaseUrl: function(url) {
+                try {
+                    var parsedUrl = new URL(url);
+                    return parsedUrl.protocol + '//' + parsedUrl.host;
+                } catch (e) {
+                    return '';
+                }
+            },
+            uploadCatalogs: function () {
+                console.log(this.catalogs)
+                axios.post('/set_catalogs', {
+                    data: JSON.stringify(this.catalogs)
+                }).then(function (response) {
+                    console.log(response);
+                    $('#editModalCenter').modal('hide');
+                    location.reload();
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            closeCatalogsModal: function () {
+                $('#editModalCenter').modal('hide');
+                this.catalogs = JSON.parse(this.catalogs_str)
+            },
+            deleteCatalog: function (catalog) {
+                this.removeFromList(this.catalogs, catalog)
+            },
+            deleteLink: function (catalog, link) {
+                this.removeFromList(catalog.links, link)
+            },
+            editCatalog: function(catalog){
+                this.edit_catalog = catalog
+                $('#newCatalogModal').modal('show');
+            },
+            editCatalogCancel: function(){
+                $('#newCatalogModal').modal('hide');
+                this.edit_catalog=null;
+            },
+            editLink: function(link){
+                this.edit_link = link
+                $('#newLinkModal').modal('show');
+            },
+            editLinkCancel: function(){
+                $('#newLinkModal').modal('hide');
+                this.edit_link=null;
+            },
+            saveCatalog: function () {
+                if(this.edit_catalog!=null){
+                    $('#newCatalogModal').modal('hide');
+                    this.edit_catalog=null;
+                }else {
+                    if(this.new_catalog_title!=''){
+                        this.catalogs.push(JSON.parse('{"id":'+this.getRandomTmpId()+',"title":"'+this.new_catalog_title+'","links":[]}'));
+                        $('#newCatalogModal').modal('hide');
+                        this.new_catalog_title = '';
+                    }
+                }
+            },
+            saveLink: function () {
+                if(this.edit_link!=null){
+                    for (var i=0;i<this.catalogs.length;i++){
+                        if(this.catalogs[i].id == this.edit_link.catalog_id && this.catalogs[i].links.indexOf(this.edit_link)<0){
+                            this.catalogs[i].links.push(this.edit_link)
+                        }else if(this.catalogs[i].id != this.edit_link.catalog_id && this.catalogs[i].links.indexOf(this.edit_link)>=0){
+                            this.removeFromList(this.catalogs[i].links,this.edit_link);
+                        }
+                    }
+                    $('#newLinkModal').modal('hide');
+                    this.edit_link=null;
+                }else {
+                    if(this.new_link_catalog_id!=''||this.new_link_title!=''||this.new_link_title!=''){
+                        for( var index = 0; index < this.catalogs.length; index ++){
+                            if(this.catalogs[index].id == this.new_link_catalog_id){
+                                this.catalogs[index].links.push(JSON.parse('{"id":'+this.getRandomTmpId()+',"title":"'+this.new_link_title+'","catalog_id":2,"url":"'+this.new_link_url+'","icon":"'+this.new_link_icon+'"}'));
+                            }
+                        }
+                        this.new_link_catalog_id= '';
+                        this.new_link_title= '';
+                        this.new_link_url= '';
+                        this.new_link_icon= '';
+                        $('#newLinkModal').modal('hide');
+                    }
+                }
+            },
+            removeFromList: function(arr, val) {
+                var index = arr.indexOf(val);
+                if (index > -1) {
+                    arr.splice(index, 1);
+                }
+            },
+            getRandomTmpId: function () {
+                return Math.floor(Math.random()*(-10000)-1);
+            },
+            openLink: function (url) {
+                window.open(url)
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+body{
+
+}
+
+.calalog{
+    border-top:1px solid #f0f0f0;
+    font-size: 14px;
+}
+.calalog:last-child
+{
+    border-bottom:1px solid #f0f0f0;
+}
+
+.calalog-title{
+    width:130px;
+    height:44px;
+    float: left;
+    padding: 1px 10px;
+}
+.calalog-title .name-text{
+    width: 60px;
+    height: 42px;
+    line-height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calalog-items{
+    width: calc(100% - 130px);
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.calalog-item{
+    width:182px;
+    height:44px;
+}
+.calalog-item:hover{
+    background-color: #EFEFEF;
+}
+
+.calalog-item .nav-icon {
+    margin-left: 15px;
+    margin-top: 12px;
+    float: left;
+}
+
+.calalog-item .nav-text{
+    line-height: 41px;
+    height: 41px;
+    margin-left: 5px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    max-width: 136px;
+    float: left;
+}
+.calalog-item .nav-text .nav-text-content{
+    max-width: 100%;
+    _width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.login-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.signin-body {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .checkbox {
+    font-weight: 400;
+}
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-reg {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-reg .checkbox {
+    font-weight: 400;
+}
+.form-reg .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-reg .form-control:focus {
+    z-index: 2;
+}
+
+.form-reg input[type="email"] {
+    margin-bottom: 10px;
+}
+
+.form-reg #user_password {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-reg #user_password_confirmation {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

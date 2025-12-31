@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>编辑 - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/application.css">
+</head>
+
+<body>
+
+<div class="container-fluid">
+  <div class="signin-body">
+    <form class="form-reg" action="/users/edit" method="post">
+
+      <h2>编辑</h2>
+
+      <input name="email" type="email" autofocus autocomplete="email" class="form-control" placeholder="邮箱" value="{{.User.Email}}">
+
+      <input name="username" type="text" autocomplete="username" class="form-control" placeholder="用户名" style="margin-bottom:10px;" value="{{.User.Username}}">
+
+      <input name="password" type="password" autocomplete="off" class="form-control" placeholder="新密码 (不改则留空)" style="margin-bottom:0;">
+
+      <input name="password_confirmation" type="password" autocomplete="off" class="form-control" placeholder="确认密码">
+
+      <input name="current_password" type="password" autocomplete="off" class="form-control" placeholder="当前密码">
+
+      {{range .Errors}}
+      <div class="text-danger">{{.}}</div>
+      {{end}}
+
+      <button type="submit" class="btn btn-lg btn-primary btn-block login-btn">更新</button>
+
+      <a href="/" class="btn btn-lg btn-secondary btn-block login-btn">取消</a>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

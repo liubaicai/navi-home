@@ -1,20 +1,44 @@
-FROM ruby:2.7
+# Build stage
+FROM golang:1.21-alpine AS builder
 
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+WORKDIR /app
 
-RUN mkdir /myapp
-WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-RUN bundle install
-COPY . /myapp
+# Install build dependencies
+RUN apk add --no-cache gcc musl-dev
 
-RUN rails assets:precompile
+# Copy go mod files
+COPY go.mod go.sum ./
+RUN go mod download
 
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+# Copy source code
+COPY . .
+
+# Build the application
+RUN CGO_ENABLED=1 GOOS=linux go build -o navi-home .
+
+# Runtime stage
+FROM alpine:latest
+
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk add --no-cache ca-certificates sqlite
+
+# Copy the binary
+COPY --from=builder /app/navi-home .
+
+# Copy templates and static files
+COPY --from=builder /app/templates ./templates
+COPY --from=builder /app/static ./static
+COPY --from=builder /app/public ./public
+
+# Create data directory
+RUN mkdir -p /app/data
 
 EXPOSE 3000
 
-# Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0", "-e", "production"]
+# Set environment variables
+ENV GIN_MODE=release
+ENV PORT=3000
+
+CMD ["./navi-home"]

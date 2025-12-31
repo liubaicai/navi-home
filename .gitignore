@@ -4,27 +4,18 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
-/.bundle
+# Go binary
+/navi-home
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
-
-# Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
+# Data files
 /data/*
-!/log/.keep
-!/tmp/.keep
 !/data/.keep
 
+# Ignore icon cache
 /public/icons/*
 !/public/icons/.keep
-public/assets/
 
-# Ignore Byebug command history file.
-.byebug_history
-
+# IDE files
 .idea
 .env
+.vscode

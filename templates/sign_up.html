@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>注册 - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/application.css">
+</head>
+
+<body>
+
+<div class="container-fluid">
+  <div class="signin-body">
+    <form class="form-reg" action="/users/sign_up" method="post">
+
+      <h2>注册</h2>
+
+      <label class="sr-only">Email</label>
+      <input name="email" type="email" autofocus autocomplete="email" class="form-control" placeholder="邮箱">
+
+      <input name="username" type="text" autocomplete="username" class="form-control" placeholder="用户名" style="margin-bottom:10px;">
+
+      <label class="sr-only">Password</label>
+      <input name="password" type="password" autocomplete="off" class="form-control" placeholder="密码 (至少{{.MinimumPasswordLength}}字符)" style="margin-bottom:0;">
+
+      <label class="sr-only">Password Confirmation</label>
+      <input name="password_confirmation" type="password" autocomplete="off" class="form-control" placeholder="确认密码">
+
+      {{range .Errors}}
+      <div class="text-danger">{{.}}</div>
+      {{end}}
+
+      <button type="submit" class="btn btn-lg btn-primary btn-block login-btn">注册</button>
+
+      <a href="/users/sign_in" class="btn btn-lg btn-secondary btn-block login-btn">登录</a>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
